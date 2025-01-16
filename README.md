@@ -1,19 +1,19 @@
 ## Tech stack for the project:
 
-1. NextJS (Parallel Routes, Group Routes, Server Actions, API)
-2. TypeScript
-3. TailwindCSS + ShadCN
-4. Prisma + PostgreSQL
-5. NextAuth
-6. React Hook Form + Zod
-7. Zustand
-8. react-use
-9. nextjs-toploader
-10. react-hot-toast
-11. react-insta-stories
-12. lucide-react
-13. Resend
-14. OpenAI
+- **NextJS:** Advanced routing, server actions, APIs.  
+- **TypeScript:** Static typing, error prevention.  
+- **TailwindCSS + ShadCN:** Fast styling, pre-built components.  
+- **Prisma + PostgreSQL:** Type-safe database interaction.  
+- **NextAuth:** Secure authentication management.  
+- **React Hook Form + Zod:** Form handling, validation.  
+- **Zustand:** Lightweight state management.  
+- **react-use:** Reusable React hooks.  
+- **nextjs-toploader:** Navigation loading indicator.  
+- **react-hot-toast:** Stylish toast notifications.  
+- **react-insta-stories:** Instagram-like stories component.  
+- **lucide-react:** Simple SVG icons.  
+- **Resend:** Easy email sending.  
+- **OpenAI:** AI-driven features.  
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
