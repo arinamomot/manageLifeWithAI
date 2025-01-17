@@ -1,3 +1,8 @@
+**Blissipline** is the combination of Bliss and Discipline.
+The term is used in the context of being in the now (bliss) as you strive towards achieving your goals (which takes discipline).
+
+With blissipline you no longer pursue your goals with grim determination or use fear to motivate you. Instead there is a joyous energy behind everything you do. You are in the now, and the steps towards your goal are the blissful journey, rather than a means to an end.
+
 ## Tech stack for the project:
 
 - **NextJS:** Advanced routing, server actions, APIs.  
