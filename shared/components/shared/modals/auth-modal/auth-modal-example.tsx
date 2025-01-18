@@ -41,7 +41,6 @@ export const AuthModalExample: React.FC<AuthModalProps> = ({ onClose }) => {
 
   return (
     <div>
-      <h2>Login</h2>
       <form action={submitAction}>
         <Input type="email" name="email" placeholder="Email" />
         <Input type="password" name="password" placeholder="Password" />

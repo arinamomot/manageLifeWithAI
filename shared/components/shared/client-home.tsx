@@ -12,16 +12,15 @@ export const ClientHome: React.FC = () => {
   return (
     <>
       <div>
-        <h1>Home</h1>
-        <div>
-          {session ? (
-            <div>
-              <p>Welcome, {session.user?.name}</p>
-            </div>
-          ) : (
-            <p>You are not signed in.</p>
-          )}
-        </div>
+        {session ? (
+          <p className="flex flex-col items-center justify-center h-20">
+            Welcome, {session.user?.firstName} {session.user?.lastName}
+          </p>
+        ) : (
+          <p className="flex flex-col items-center justify-center h-20">
+            You are not signed in.
+          </p>
+        )}
       </div>
     </>
   );

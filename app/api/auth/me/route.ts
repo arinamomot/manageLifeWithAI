@@ -20,7 +20,8 @@ export async function GET(req: any, res: any) {
                 id: Number(user.user.id)
             },
             select: {
-                fullName: true,
+                firstName: true,
+                lastName: true,
                 email: true,
                 password: false
             }

@@ -12,6 +12,16 @@ export const authOptions: AuthOptions = {
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID || '',
       clientSecret: process.env.GOOGLE_CLIENT_SECRET || '',
+      profile(profile) {
+        return {
+          id: profile.id,
+          firstName: profile?.name?.split(' ')[0] || profile.login,
+          lastName: profile?.name?.split(' ')[1] || '',
+          email: profile.email,
+          image: profile.avatar_url,
+          role: 'USER' as UserRole,
+        };
+      },
     }),
     GitHubProvider({
       clientId: process.env.GITHUB_ID || '',
@@ -23,6 +33,8 @@ export const authOptions: AuthOptions = {
           email: profile.email,
           image: profile.avatar_url,
           role: 'USER' as UserRole,
+          firstName: profile.name?.split(' ')[0] || profile.login,
+          lastName: profile.name?.split(' ')[1] || '',
         };
       },
     }),
@@ -62,8 +74,9 @@ export const authOptions: AuthOptions = {
         return {
           id: findUser.id,
           email: findUser.email,
-          name: findUser.fullName,
-          role: findUser.role,
+          firstName: findUser.firstName,
+          lastName: findUser.lastName,
+          role: findUser.role
         };
       },
     }),
@@ -109,7 +122,8 @@ export const authOptions: AuthOptions = {
         await prisma.user.create({
           data: {
             email: user.email,
-            fullName: user.name || 'User #' + user.id,
+            firstName: user.name?.split(' ')[0] || 'User #' + user.id,
+            lastName: user.name?.split(' ')[1] || '',
             password: hashSync(user.id.toString(), 10),
             verified: new Date(),
             provider: account?.provider,
@@ -137,8 +151,10 @@ export const authOptions: AuthOptions = {
       if (findUser) {
         token.id = String(findUser.id);
         token.email = findUser.email;
-        token.fullName = findUser.fullName;
+        token.name = findUser.firstName + ' ' + findUser.lastName;
         token.role = findUser.role;
+        token.firstName = findUser.firstName;
+        token.lastName = findUser.lastName;
       }
 
       return token;
@@ -147,6 +163,8 @@ export const authOptions: AuthOptions = {
       if (session?.user) {
         session.user.id = token.id;
         session.user.role = token.role;
+        session.user.firstName = token.firstName;
+        session.user.lastName = token.lastName;
       }
 
       return session;

@@ -142,3 +142,5 @@ yarn-error.log*
 
 # Vercel
 .vercel
+
+auth-modal-example.tsx

@@ -5,3 +5,5 @@ export { ProvidersButtons } from './providers-buttons';
 export { Providers } from './providers';
 export * from './modals';
 // export * from './form';
+export { Container } from './container';
+export { Title } from './title';

@@ -1,28 +1,45 @@
 "use client";
-// import { useSession } from "next-auth/react";
+import { CircleUser } from "lucide-react";
 import { Button } from "../ui/button";
 import React from "react";
+import {
+  DropdownMenu,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuTrigger,
+} from "../ui/dropdown-menu";
+import Link from "next/link";
+import { signOut } from "next-auth/react";
 
 interface ProfileButtonProps {
-  onClickSignIn?: () => void;
   className?: string;
 }
 
-export const ProfileButton: React.FC<ProfileButtonProps> = ({
-  className,
-  onClickSignIn,
-}) => {
-  // const { data: session } = useSession();
+const onClickSignOut = () => {
+  signOut({
+    callbackUrl: "/",
+  });
+};
 
+export const ProfileButton: React.FC<ProfileButtonProps> = ({ className }) => {
   return (
     <div className={className}>
-      <Button
-        onClick={onClickSignIn}
-        variant="outline"
-        className="flex items-center gap-1"
-      >
-        Log in
-      </Button>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="outline" className="flex items-center gap-1">
+            <CircleUser size={16} />
+            Profile
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent>
+          <DropdownMenuItem>
+            <Link href="/profile">Profile</Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={onClickSignOut}>Log out</DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
     </div>
   );
 };
