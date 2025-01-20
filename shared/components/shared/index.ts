@@ -7,3 +7,5 @@ export * from './modals';
 // export * from './form';
 export { Container } from './container';
 export { Title } from './title';
+export { InfoBlock } from './info-block';
+export { ProfileForm } from './profile-form';

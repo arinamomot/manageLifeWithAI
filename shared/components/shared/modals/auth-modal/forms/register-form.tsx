@@ -1,20 +1,20 @@
 "use client";
 
-import { Button } from "@/shared/components";
 import React, { useState } from "react";
-import { z } from "zod";
-import { FormProvider } from "react-hook-form";
-import { useForm } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { TermsAndPrivacy } from "../../../form";
 import { FormInput } from "../../../form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { formRegisterSchema, TFormRegisterValues } from ".";
 import toast from "react-hot-toast";
-interface Props {
+import { registerUser } from "@/app/actions";
+import { Button } from "@/shared/components";
+
+interface RegisterFormProps {
   onClose?: VoidFunction;
 }
 
-export const RegisterForm: React.FC<Props> = ({ onClose }) => {
+export const RegisterForm: React.FC<RegisterFormProps> = ({ onClose }) => {
   const [isChecked, setIsChecked] = useState(false);
 
   const form = useForm<TFormRegisterValues>({
@@ -29,21 +29,26 @@ export const RegisterForm: React.FC<Props> = ({ onClose }) => {
   });
 
   const onSubmit = async (data: TFormRegisterValues) => {
-    try {
-      //TODO: registration
-      // await registerUser({
-      //   email: data.email,
-      //   firstName: data.firstName,
-      //   lastName: data.lastName,
-      //   password: data.password,
-      // });
+    if (!isChecked) {
+      toast.error("You must agree to the Terms and Privacy Policy");
+      return;
+    }
 
-      toast.error("Registration successful 📝. Confirm your email", {
+    try {
+      await registerUser({
+        email: data.email,
+        firstName: data.firstName,
+        lastName: data.lastName,
+        password: data.password,
+      });
+
+      toast.success("Registration successful 📝. Confirm your email", {
         icon: "✅",
       });
 
       onClose?.();
     } catch (error) {
+      console.log("error", error);
       return toast.error("Incorrect email or password", {
         icon: "❌",
       });
@@ -52,18 +57,22 @@ export const RegisterForm: React.FC<Props> = ({ onClose }) => {
 
   return (
     <FormProvider {...form}>
-      <form id="register-form" className="flex flex-col gap-3">
+      <form
+        id="register-form"
+        className="flex flex-col gap-3"
+        onSubmit={form.handleSubmit(onSubmit)}
+      >
         <div className="flex gap-4">
           <FormInput
             className="w-1/2"
-            name="name"
+            name="firstName"
             label="First Name"
             type="text"
             required
           />
           <FormInput
             className="w-1/2"
-            name="lastname"
+            name="lastName"
             label="Last Name"
             type="text"
             required

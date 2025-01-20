@@ -124,6 +124,7 @@ export const authOptions: AuthOptions = {
             email: user.email,
             firstName: user.name?.split(' ')[0] || 'User #' + user.id,
             lastName: user.name?.split(' ')[1] || '',
+            //TODO: rewrite for better security
             password: hashSync(user.id.toString(), 10),
             verified: new Date(),
             provider: account?.provider,

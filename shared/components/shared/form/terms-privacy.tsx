@@ -17,8 +17,8 @@ export const TermsAndPrivacy: React.FC<Props> = ({
       <Checkbox
         id="register-terms"
         className="border-black"
+        onCheckedChange={() => setIsChecked(!isChecked)}
         checked={isChecked}
-        onChange={() => setIsChecked(!isChecked)}
       />
       <label htmlFor="register-terms" className="text-xs">
         I agree to Blissipline's{" "}

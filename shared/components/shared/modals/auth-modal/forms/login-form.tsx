@@ -12,11 +12,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import toast from "react-hot-toast";
 import { signIn } from "next-auth/react";
 
-interface Props {
+interface LoginFormProps {
   onClose?: VoidFunction;
 }
 
-export const LoginForm: React.FC<Props> = ({ onClose }) => {
+export const LoginForm: React.FC<LoginFormProps> = ({ onClose }) => {
   const [isChecked, setIsChecked] = useState(false);
 
   const form = useForm<TFormLoginValues>({
@@ -72,7 +72,7 @@ export const LoginForm: React.FC<Props> = ({ onClose }) => {
               id="remember-me"
               className="border-black"
               checked={isChecked}
-              onChange={() => setIsChecked(!isChecked)}
+              onCheckedChange={() => setIsChecked(!isChecked)}
             />
             <label htmlFor="remember-me" className="text-sm">
               Remember me

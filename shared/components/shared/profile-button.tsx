@@ -34,10 +34,12 @@ export const ProfileButton: React.FC<ProfileButtonProps> = ({ className }) => {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
-          <DropdownMenuItem>
+          <DropdownMenuItem className="cursor-pointer">
             <Link href="/profile">Profile</Link>
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={onClickSignOut}>Log out</DropdownMenuItem>
+          <DropdownMenuItem className="cursor-pointer" onClick={onClickSignOut}>
+            Log out
+          </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     </div>
