@@ -19,6 +19,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ onClose }) => {
 
   const form = useForm<TFormRegisterValues>({
     resolver: zodResolver(formRegisterSchema),
+    mode: "onChange",
     defaultValues: {
       email: "",
       firstName: "",
@@ -59,10 +60,10 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ onClose }) => {
     <FormProvider {...form}>
       <form
         id="register-form"
-        className="flex flex-col gap-3"
+        className="flex flex-col gap-2"
         onSubmit={form.handleSubmit(onSubmit)}
       >
-        <div className="flex gap-4">
+        <div className="flex gap-2">
           <FormInput
             className="w-1/2"
             name="firstName"

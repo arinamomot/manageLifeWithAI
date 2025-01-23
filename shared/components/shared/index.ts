@@ -8,4 +8,3 @@ export * from './modals';
 export { Container } from './container';
 export { Title } from './title';
 export { InfoBlock } from './info-block';
-export { ProfileForm } from './profile-form';

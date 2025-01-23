@@ -6,6 +6,7 @@ import { Prisma } from '@prisma/client';
 import { hashSync } from 'bcrypt';
 import { sendEmail } from '@/shared/lib';
 import { getUserSession } from '@/shared/lib';
+import { put } from '@vercel/blob/client';
 
 export async function updateUserInfo(body: Prisma.UserUpdateInput) {
   try {
@@ -21,6 +22,12 @@ export async function updateUserInfo(body: Prisma.UserUpdateInput) {
       },
     });
 
+    let imageUrl = body.image;
+    if (body.image instanceof File) {
+      console.log('Uploading image...');
+      imageUrl = await uploadImage(body.image);
+    }
+
     await prisma.user.update({
       where: { id: Number(currentUser.id) },
       data: {
@@ -30,6 +37,7 @@ export async function updateUserInfo(body: Prisma.UserUpdateInput) {
         password: body.password ? hashSync(body.password as string, 10) : user?.password,
         dateOfBirth: body.dateOfBirth,
         gender: body.gender,
+        image: imageUrl
       }
     });
   } catch (error) {
@@ -65,11 +73,13 @@ export async function registerUser(body: Prisma.UserCreateInput) {
   
       const code = Math.floor(100000 + Math.random() * 900000).toString();
   
-      // TODO: time limit
+      const expiresAt = new Date(Date.now() + 15 * 60 * 1000);
+
       await prisma.verificationCode.create({
         data: {
           code,
           userId: createdUser.id,
+          expiresAt
         },
       });
 
@@ -84,5 +94,23 @@ export async function registerUser(body: Prisma.UserCreateInput) {
     } catch (err) {
       console.log('Error [CREATE_USER]', err);
       throw err;
+    }
+  }
+
+  async function uploadImage(file: File): Promise<string> {
+    try {
+      const uniqueSuffix = `-${Date.now()}-${Math.round(Math.random() * 1E9)}`;
+      const filename = file.name.replace(/(\.[^/.]+)$/, `${uniqueSuffix}$1`);
+  
+      const { url } = await put(filename, file, {
+        token: process.env.BLOB_READ_WRITE_TOKEN as string,
+        access: 'public'
+      });
+      
+      console.log('Image uploaded:', url);
+      return url;
+    } catch (error) {
+      console.error('Error uploading image:', error);
+      throw new Error('Failed to upload image');
     }
   }

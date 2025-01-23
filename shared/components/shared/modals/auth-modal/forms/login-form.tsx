@@ -21,6 +21,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onClose }) => {
 
   const form = useForm<TFormLoginValues>({
     resolver: zodResolver(formLoginSchema),
+    mode: "onChange",
     defaultValues: {
       email: "",
       password: "",

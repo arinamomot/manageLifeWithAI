@@ -21,7 +21,7 @@ export const formRegisterSchema = formLoginSchema
   });
 
 export const formProfileSchema = z.object({
-  email: z.string().email({ message: 'Please enter the correct password' }),
+  email: z.string().email({ message: 'Please enter the correct Email' }),
   firstName: z.string().min(2, { message: 'Enter your First Name' }),
   lastName: z.string().min(2, { message: 'Enter your Last Name' }),
   password: passwordSchema.optional(),

@@ -51,7 +51,7 @@ export const AuthModal: React.FC<Props> = ({
     <Dialog open={open} onOpenChange={handleClose}>
       <DialogContent
         aria-describedby="auth-modal"
-        className="w-[470px] bg-white p-8"
+        className="w-[470px] bg-white px-8 py-6 max-h-[100%] overflow-y-auto"
       >
         <DialogTitle>{title(type)}</DialogTitle>
         {type === "login" ? (
@@ -59,9 +59,9 @@ export const AuthModal: React.FC<Props> = ({
         ) : (
           <RegisterForm onClose={handleClose} />
         )}
-        <DialogDescription />
+        <DialogDescription className="hidden" />
 
-        <div className="grid gap-4">
+        <div className="grid gap-2">
           <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
             <span className="relative z-10 bg-background px-2 text-muted-foreground">
               Or continue with
