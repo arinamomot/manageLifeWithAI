@@ -5,14 +5,17 @@ import React from "react";
 interface Props {
   className?: string;
   onClick?: VoidFunction;
+  type?: string;
 }
 
-export const ClearButton: React.FC<Props> = ({ onClick, className }) => {
+export const ClearButton: React.FC<Props> = ({ onClick, className, type }) => {
   return (
     <button
       onClick={onClick}
       className={cn(
-        "absolute right-4 top-1/2 -translate-y-1/2 opacity-30 hover:opacity-100 cursor-pointer",
+        `absolute ${
+          type === "number" ? "right-[1.75rem]" : "right-4"
+        } top-1/2 -translate-y-1/2 opacity-30 hover:opacity-100 cursor-pointer`,
         className
       )}
     >

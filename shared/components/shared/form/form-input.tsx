@@ -61,8 +61,8 @@ export const FormInput: React.FC<Props> = ({
           placeholder={placeholder}
           required={required}
           className="h-12 text-md"
-          {...register(name)}
           {...props}
+          {...register(name)}
         />
 
         <div className="flex items-center justify-end gap-2">
@@ -80,7 +80,7 @@ export const FormInput: React.FC<Props> = ({
               )}
             </button>
           )}
-          {value && <ClearButton onClick={onClickClear} />}
+          {value && <ClearButton onClick={onClickClear} type={type} />}
         </div>
       </div>
 

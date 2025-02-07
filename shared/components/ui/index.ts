@@ -9,3 +9,4 @@ export * from "./form";
 export * from "./dropdown-menu";
 export { Switch } from "./switch";
 export { Separator } from "./separator";
+export { Select } from "./select";

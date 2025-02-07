@@ -1,7 +1,7 @@
 'use server';
 
 import { prisma } from '@/prisma/prisma-client';
-import { VerificationUserTemplate } from '@/shared/components/shared/email-temapltes/verification-user';
+import { VerificationUserTemplate } from '@/shared/components/shared/email-templates/verification-user';
 import { Prisma } from '@prisma/client';
 import { hashSync } from 'bcrypt';
 import { sendEmail } from '@/shared/lib';
@@ -97,7 +97,7 @@ export async function registerUser(body: Prisma.UserCreateInput) {
     }
   }
 
-  async function uploadImage(file: File): Promise<string> {
+  export async function uploadImage(file: File): Promise<string> {
     try {
       const uniqueSuffix = `-${Date.now()}-${Math.round(Math.random() * 1E9)}`;
       const filename = file.name.replace(/(\.[^/.]+)$/, `${uniqueSuffix}$1`);
@@ -112,5 +112,27 @@ export async function registerUser(body: Prisma.UserCreateInput) {
     } catch (error) {
       console.error('Error uploading image:', error);
       throw new Error('Failed to upload image');
+    }
+  }
+
+  export async function createHabit(body: Prisma.HabitCreateInput) {
+    try {
+      const currentUser = await getUserSession();
+
+      if (!currentUser) {
+        throw new Error('User not found');
+      }
+
+      await prisma.habit.create({
+        data: {
+          name: body.name,
+          goal: body.goal,
+          priority: body.priority,
+          userId: body?.user?.connect?.id || Number(currentUser.id),
+        },
+      });
+    } catch (error) {
+      console.log('Error [CREATE_HABIT]', error);
+      throw error;
     }
   }

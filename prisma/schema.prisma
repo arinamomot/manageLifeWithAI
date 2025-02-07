@@ -28,6 +28,7 @@ model User {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  habits    Habit[]
 }
 
 model VerificationCode {
@@ -53,4 +54,33 @@ enum Gender {
   MALE
   FEMALE
   OTHER
+}
+
+model Habit {
+  id        Int          @id @default(autoincrement())
+  name      String
+  priority  String       @default("Low")
+  color     String       @default("bg-yellow-100")
+  goal      Int          @default(0)
+  achieved  Int          @default(0)
+  entries   HabitEntry[]
+  userId    Int
+  user      User         @relation(fields: [userId], references: [id])
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+
+  @@index([userId])
+}
+
+model HabitEntry {
+  id        Int      @id @default(autoincrement())
+  habitId   Int
+  date      DateTime
+  completed Boolean  @default(false)
+  habit     Habit    @relation(fields: [habitId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([habitId])
+  @@index([date])
 }

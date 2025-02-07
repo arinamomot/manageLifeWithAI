@@ -13,7 +13,7 @@ import { LoginForm } from "./forms/login-form";
 import { RegisterForm } from "./forms/register-form";
 import { LoginType } from "../../../../constants/types";
 
-interface Props {
+interface AuthModalProps {
   open: boolean;
   onClose: () => void;
   type: LoginType;
@@ -33,7 +33,7 @@ const title = (type: "login" | "register") => {
   );
 };
 
-export const AuthModal: React.FC<Props> = ({
+export const AuthModal: React.FC<AuthModalProps> = ({
   open,
   onClose,
   type,
